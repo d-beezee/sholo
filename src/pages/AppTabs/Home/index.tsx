@@ -5,13 +5,19 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
+  IonButton,
 } from "@ionic/react";
 import "./Tab1.css";
 import { heart } from "ionicons/icons";
 import useGoogleProfile from "../../../hooks/useGoogleProfile";
+import handleMessages from "../../../features/handleMessages";
+import { publish } from "../../../slices/connection";
+import { useAppDispatch } from "../../../app/hooks";
 
+handleMessages();
 const Tab1: React.FC = () => {
   const { profile, loaded } = useGoogleProfile();
+  const dispatch = useAppDispatch();
   return (
     <IonPage>
       <IonHeader>
@@ -31,6 +37,13 @@ const Tab1: React.FC = () => {
             <p>
               Share some <IonIcon icon={heart} />
             </p>
+            <IonButton
+              onClick={() => {
+                dispatch(publish("ciao"));
+              }}
+            >
+              Love
+            </IonButton>
           </div>
         ) : (
           <>loading</>

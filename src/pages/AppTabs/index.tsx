@@ -11,7 +11,7 @@ import {
 } from "@ionic/react";
 import Home from "./Home";
 import Tab2 from "../Tab2";
-import Tab3 from "./Settings";
+import Settings from "./Settings";
 
 const tabs = [
   {
@@ -29,10 +29,10 @@ const tabs = [
     icon: images,
   },
   {
-    component: Tab3,
-    name: "tab3",
-    path: "/tab3",
-    label: "Tab 3",
+    component: Settings,
+    name: "Settings",
+    path: "/tab/settings",
+    label: "Settings",
     icon: square,
   },
 ];

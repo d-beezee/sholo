@@ -24,22 +24,30 @@ import "./theme/variables.css";
 import AppTabs from "./pages/AppTabs";
 import Splash from "./pages/Splash";
 
+import { useEffect } from "react";
+import { useAppDispatch } from "./app/hooks";
+import { changeChannel } from "./slices/connection";
 setupIonicReact();
-
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <Route path="/tab*">
-        <AppTabs />
-      </Route>
-      <Route path="/login">
-        <Login />
-      </Route>
-      <Route exact path="/">
-        <Splash />
-      </Route>
-    </IonReactRouter>
-  </IonApp>
-);
+const App: React.FC = () => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(changeChannel("general/"));
+  });
+  return (
+    <IonApp>
+      <IonReactRouter>
+        <Route path="/tab*">
+          <AppTabs />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route exact path="/">
+          <Splash />
+        </Route>
+      </IonReactRouter>
+    </IonApp>
+  );
+};
 
 export default App;

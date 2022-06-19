@@ -10,14 +10,15 @@ import {
 import "./Tab1.css";
 import { heart } from "ionicons/icons";
 import useGoogleProfile from "../../../hooks/useGoogleProfile";
-import handleMessages from "../../../features/handleMessages";
+import useHandleMessages from "../../../features/handleMessages";
 import { publish } from "../../../slices/connection";
-import { useAppDispatch } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 
-handleMessages();
 const Tab1: React.FC = () => {
   const { profile, loaded } = useGoogleProfile();
   const dispatch = useAppDispatch();
+  const { message } = useAppSelector((state) => state.connection);
+  useHandleMessages();
   return (
     <IonPage>
       <IonHeader>
@@ -44,6 +45,7 @@ const Tab1: React.FC = () => {
             >
               Love
             </IonButton>
+            <p>{message}</p>
           </div>
         ) : (
           <>loading</>

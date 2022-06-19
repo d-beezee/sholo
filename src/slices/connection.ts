@@ -1,9 +1,10 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../app/store";
 
 interface ConnectionState {
   channel?: string;
   key?: string;
+  message?: string;
 }
 //@ts-ignore
 const client = window.emitterClient;
@@ -59,7 +60,11 @@ const publish = createAsyncThunk<any, string, { state: RootState }>(
 const connectionSlice = createSlice({
   name: "connection",
   initialState,
-  reducers: {},
+  reducers: {
+    setMessage: (state, action) => {
+      state.message = state.message === "bau" ? "miao" : "bau";
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(changeChannel.fulfilled, (state, action) => {
       state.key = action.payload.key;
@@ -69,5 +74,6 @@ const connectionSlice = createSlice({
   },
 });
 
-export { changeChannel, publish };
+const { setMessage } = connectionSlice.actions;
+export { setMessage, changeChannel, publish };
 export default connectionSlice.reducer;

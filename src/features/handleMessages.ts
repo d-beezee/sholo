@@ -1,8 +1,15 @@
-const handleMessages = () => {
+import { useAppDispatch } from "../app/hooks";
+import { setMessage } from "../slices/connection";
+const useHandleMessage = () => {
+  const dispatch = useAppDispatch();
   // @ts-ignore
   const client = window.emitterClient;
-  client.on("message", function (msg: any) {
+  const handle = (msg: any) => {
     console.log(msg.asString());
-  });
+    dispatch(setMessage(msg.asString()));
+  };
+  client._callbacks.message = [];
+
+  client.on("message", handle);
 };
-export default handleMessages;
+export default useHandleMessage;
